@@ -303,11 +303,17 @@ func (ss *Sim) ConfigNet(net *leabra.Network) {
 	net.BidirConnectLayers(sph, phn, full)
 	net.BidirConnectLayers(ort, oph, full)
 	net.BidirConnectLayers(oph, phn, full)
+	net.BidirConnectLayers(phn, aph, full)
+	net.BidirConnectLayers(aph, aud, full)
+	net.BidirConnectLayers(aud, ash, full)
+
+	net.ConnectLayers(aph, sem, full, emer.Forward)
 
 	// lateral cons
 	net.LateralConnectLayer(ort, full)
 	net.LateralConnectLayer(sem, full)
 	net.LateralConnectLayer(phn, full)
+	net.LateralConnectLayer(aud, full)
 
 	oph.SetRelPos(relpos.Rel{Rel: relpos.RightOf, Other: "Orthography", YAlign: relpos.Front, Space: 40})
 	phn.SetRelPos(relpos.Rel{Rel: relpos.RightOf, Other: "OPhidden", YAlign: relpos.Front, Space: 30})
