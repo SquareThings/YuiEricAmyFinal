@@ -307,7 +307,8 @@ func (ss *Sim) ConfigNet(net *leabra.Network) {
 	net.BidirConnectLayers(aph, aud, full)
 	net.BidirConnectLayers(aud, ash, full)
 
-	net.ConnectLayers(aph, sem, full, emer.Forward)
+	net.BidirConnectLayers(aph, sem, full)
+	// one-way connection made it break
 
 	// lateral cons
 	net.LateralConnectLayer(ort, full)
