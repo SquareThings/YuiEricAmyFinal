@@ -33,13 +33,13 @@ The `TrlPhon` entry in the control panel decodes the Phon-ological output, by ma
 Also shown in the information just under the network, in the `Name` field, is a code for the type of word (which depends on the different testing sets) -- for this Probe test set, the codes are:
 
 * HRC -- High freq regular consistent (e.g., best)
-* HRI -- High freq regular inconsistent (e.g., bone, c.f., done)
-* HAM -- High freq ambiguous (e.g., brown, c.f., blown)
-* HEX -- High freq exception (e.g., both, c.f., cloth
+* HRI -- High freq regular inconsistent (e.g., bone, cf., done)
+* HAM -- High freq ambiguous (e.g., brown, cf., blown)
+* HEX -- High freq exception (e.g., both, cf., cloth)
 * LRC -- Low freq regular consistent (e.g., beam)
-* LRI -- Low freq regular inconsistent (e.g., brood, c.f., blood)
-* LAM -- Low freq ambiguous (e.g., blown, c.f., brown)
-* LEX -- Low freq exception (e.g., bowl, c.f., growl)
+* LRI -- Low freq regular inconsistent (e.g., brood, cf., blood)
+* LAM -- Low freq ambiguous (e.g., blown, cf., brown)
+* LEX -- Low freq exception (e.g., bowl, cf., growl)
 
 Let's continue to observe the network's reading performance, observing specifically the translation invariance property.
 
@@ -67,7 +67,7 @@ The hidden layer units have more complex receptive fields that can encompass all
 
 There are several important lessons from looking at the weights. First, the network seems to learn the right kinds of representations to allow for good generalization. These representations are similar to those of the V4 layer of the object recognition model in that they combine spatial invariance with conjunctive feature encoding. Second, although we are able to obtain insight by looking at some of the representations, not all are so easily interpretable. Further, once the network's complex activation dynamics are figured into the picture, it is even more difficult to figure out what is happening in the processing of any given input. As we know from the nature of the mapping problem itself, lots of subtle countervailing forces must be balanced out to determine how to pronounce a given word. Finally, the fact that we can easily interpret some units' weights is due to the use of Hebbian learning, which causes the weights to reflect the probabilities of unit co-occurrence.
 
-* Poke around some more at the network's weights, and document a relatively clear example of how the representations across the OrthoCode and Hidden layers make sense in terms of the input/output mapping being performed.  Looking at the front row of OrthoCode in the central pool is a good strategy, for keeping track of where you are, and don't neglect the weights from Hidden to Phon output which can be particularly informative (use the above figures to decode which phonemes are encoded -- the first and last 3 pools are consonants, with vowels in the middle).  Each pool on the input has the letters of the alphabet in order, from left-to-right, bottom-to-top.
+* Poke around some more at the network's weights, and document a relatively clear example of how the representations across the OrthoCode and Hidden layers make sense in terms of the input/output mapping being performed.  Looking at the front row of OrthoCode in the central pool is a good strategy, for keeping track of where you are, and don't neglect the weights from Hidden to Phon output which can be particularly informative (use the above figures to decode which phonemes are encoded -- the first and last 3 pools are consonants, with vowels in the middle).  Each pool on the input has the letters of the alphabet in order, from left-to-right, bottom-to-top. You may want to decrease the Min/Max range in the color scale in the upper right (e.g., to -0.8 to 0.8) to better see the strongest weights.
 
 > **Question 9.7:** Specify what OrthoCode units you have chosen (unit pool, row, col position within pool), what letters those OrthoCode units encode, and how the hidden unit(s) combine the OrthoCode units together -- describe how this combination of letters across locations makes sense in terms the need for both spatial invariance and conjunctive encoding of multiple letters.
 
@@ -98,7 +98,7 @@ The total percentages for both our model, PMSP (where reported) and the comparab
 
 We tried to determine for each error why the network might have produced the output it did. In many cases, this output reflected a valid pronunciation present in the training set, but it just didn't happen to be the pronunciation that the list-makers chose. This was particularly true for the Glushko (1979) exception list (for the network and for people). Also, the McCann & Besner (1987) lists contain four words that have a "j" in the final set of phonemes after the vowel (the *coda*), `faije`,  `jinje`, `waije`, `binje`, which never occurs in the training set (i.e., in the entire corpus of English monosyllabic words). These words were excluded by PMSP, and we discount them here too. Nevertheless, the network did sometimes get these words correct.
 
-> **Question 9.8:** Can you explain why the present model was sometimes able to pronounce the "j" in the coda correctly, even though none of the training words had a "j" there? (Hint: Think about the effect of translating words over different positions in the input), e.g., the word "jet".
+> **Question 9.8:** Can you explain why the present model was sometimes able to pronounce the "j" in the coda correctly, even though none of the training words had a "j" there? (Hint: Think about the effect of translating words over different positions, e.g., the word "jet," in terms of the input the model receives.)
 
 One final aspect of the model that bears on empirical data is its ability to simulate naming latencies as a function of different word features. The features of interest are word frequency and consistency (as enumerated in the Probe codes listed above). The empirical data shows that, as one might expect, higher frequency and more consistent words are named faster than lower frequency and inconsistent words. However, frequency interacts with consistency, such that the frequency effect decreases with increasing consistency (e.g., highly consistent words are pronounced at pretty much the same speed regardless of their frequency, whereas inconsistent words depend more on their frequency). The PMSP model shows the appropriate naming latency effects (and see that paper for more discussion of the empirical literature).
 
